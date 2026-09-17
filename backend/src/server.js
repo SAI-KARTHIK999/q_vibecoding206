@@ -19,7 +19,20 @@ app.use((req, res, next) => {
   next();
 });
 
-// Health check
+// Root welcome & health check
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Task Management REST API is running!',
+    frontendUrl: 'http://localhost:5173',
+    endpoints: {
+      health: '/api/health',
+      tasks: '/api/tasks',
+      projects: '/api/projects',
+      users: '/api/users'
+    }
+  });
+});
+
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
